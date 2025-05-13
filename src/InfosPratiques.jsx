@@ -8,6 +8,20 @@ export default function InfosPratiques() {
     setActiveFAQ(activeFAQ === index ? null : index);
   };
 
+  const [whatsAppMessage, setWhatsAppMessage] = useState("");
+
+const handleWhatsAppSubmit = (e) => {
+  e.preventDefault();
+
+  const phoneNumber = "33659074725"; // Ton numéro WhatsApp sans le +
+  const encodedMessage = encodeURIComponent(whatsAppMessage);
+  const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  window.open(url, "_blank");
+  setWhatsAppMessage("");
+};
+
+
   const handleQuestionSubmit = (e) => {
     e.preventDefault();
     alert("Merci pour votre question ! Nous vous répondrons rapidement.");
@@ -32,24 +46,51 @@ export default function InfosPratiques() {
       answer: "Toutes nos locations partent de la mise à l’eau de l’Estaque à Marseille. Un parking gratuit est à proximité.",
     },
   ];
+const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Barre de navigation */}
-      <nav className="bg-white shadow-md px-8 py-4 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img src="/images/logo petit.png" alt="Logo ShareLoc'sHome" className="h-12 w-auto" />
-          </div>
-          <ul className="flex space-x-6 text-gray-900 font-medium text-sm md:text-base">
-            <li><a href="/" className="hover:text-[#2389c6] transition">Accueil</a></li>
-            <li><a href="/#services" className="hover:text-[#2389c6] transition">Nos services</a></li>
-            <li><a href="/#about" className="hover:text-[#2389c6] transition">À propos</a></li>
-            <li><a href="/InfosPratiques" className="hover:text-[#2389c6] transition">Infos Pratiques</a></li>
-            <li><a href="/#reservation" className="hover:text-[#2389c6] transition">Réservation</a></li>
-          </ul>
-        </div>
-      </nav>
+      <nav className="bg-white shadow-md px-6 py-4 sticky top-0 z-50">
+  <div className="max-w-7xl mx-auto flex items-center justify-between">
+    
+    {/* Logo */}
+    <div className="flex items-center gap-4">
+      <img src="/images/logo petit.png" alt="Logo ShareLoc'sHome" className="h-12 w-auto" />
+    </div>
+
+    {/* Menu Desktop */}
+    <ul className="hidden md:flex space-x-6 text-gray-900 font-medium text-sm md:text-base">
+      <li><a href="#accueil" className="hover:text-[#2389c6] transition">Accueil</a></li>
+      <li><a href="#services" className="hover:text-[#2389c6] transition">Nos services</a></li>
+      <li><a href="#about" className="hover:text-[#2389c6] transition">À propos</a></li>
+      <li><a href="/InfosPratiques" className="hover:text-[#2389c6] transition">Infos pratiques</a></li>
+      <li><a href="#reservation" className="hover:text-[#2389c6] transition">Réservation</a></li>
+    </ul>
+
+    {/* Hamburger Mobile */}
+    <div className="md:hidden">
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="text-blue-900 text-3xl focus:outline-none"
+      >
+        ☰
+      </button>
+    </div>
+  </div>
+
+  {/* Menu Mobile Ouvert */}
+  {mobileMenuOpen && (
+    <div className="md:hidden mt-4 px-4 space-y-3 text-gray-900 font-medium text-sm bg-white shadow rounded-xl">
+      <a href="#accueil" className="block py-2 border-b hover:text-[#2389c6]">Accueil</a>
+      <a href="#services" className="block py-2 border-b hover:text-[#2389c6]">Nos services</a>
+      <a href="#about" className="block py-2 border-b hover:text-[#2389c6]">À propos</a>
+      <a href="/InfosPratiques" className="block py-2 border-b hover:text-[#2389c6]">Infos pratiques</a>
+      <a href="#reservation" className="block py-2 hover:text-[#2389c6]">Réservation</a>
+    </div>
+  )}
+</nav>
+
 
       {/* Titre principal + introduction */}
       <header className="text-center px-4 pt-5 pb-1 bg-blue-50">
@@ -110,23 +151,26 @@ export default function InfosPratiques() {
           ))}
         </div>
         <div className="mt-12 text-center">
-          <p className="mb-4 text-lg">Vous ne trouvez pas votre question ? Posez-la nous :</p>
-          <form onSubmit={handleQuestionSubmit} className="max-w-xl mx-auto flex flex-col gap-4">
-            <textarea
-              value={questionText}
-              onChange={(e) => setQuestionText(e.target.value)}
-              placeholder="Écrivez votre question ici..."
-              className="p-3 border rounded-xl"
-              required
-            ></textarea>
-            <button
-              type="submit"
-              className="bg-[#2389c6] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#216a95] transition"
-            >
-              Envoyer la question
-            </button>
-          </form>
-        </div>
+  <p className="mb-4 text-lg">
+    Vous ne trouvez pas votre question ? Posez-la nous :
+  </p>
+  <form onSubmit={handleWhatsAppSubmit} className="max-w-xl mx-auto flex flex-col gap-4">
+    <textarea
+      value={whatsAppMessage}
+      onChange={(e) => setWhatsAppMessage(e.target.value)}
+      placeholder="Écrivez votre question ici..."
+      className="p-3 border rounded-xl"
+      required
+    ></textarea>
+    <button
+      type="submit"
+      className="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-500 transition"
+    >
+      Envoyer via WhatsApp
+    </button>
+  </form>
+</div>
+
       </section>
 
     {/* Retour à l'accueil button*/}

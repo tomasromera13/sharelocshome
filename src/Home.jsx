@@ -70,7 +70,7 @@ function SampleNextArrow(props) {
   const { onClick } = props;
   return (
     <div
-      className="absolute -right-4 top-1/2 transform -translate-y-1/2 text-3xl text-blue-900 cursor-pointer z-10"
+      className="absolute -right-4 top-1/2 transform -translate-y-1/2 text-3xl text-blue-900 cursor-pointer z-10 overflow-x-hidden"
       onClick={onClick}
     >
       ➤
@@ -90,29 +90,52 @@ function SamplePrevArrow(props) {
   );
 }
 
+const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Barre de navigation */}
-      <nav className="bg-white shadow-md px-8 py-4 sticky top-0 z-50">
+      <nav className="bg-white shadow-md px-6 py-4 sticky top-0 z-50">
   <div className="max-w-7xl mx-auto flex items-center justify-between">
     
-    {/* Logo + sans nom */}
+    {/* Logo */}
     <div className="flex items-center gap-4">
       <img src="/images/logo petit.png" alt="Logo ShareLoc'sHome" className="h-12 w-auto" />
     </div>
 
-    {/* Menu de navigation */}
-    <ul className="flex space-x-6 text-gray-900 font-medium text-sm md:text-base">
+    {/* Menu Desktop */}
+    <ul className="hidden md:flex space-x-6 text-gray-900 font-medium text-sm md:text-base">
       <li><a href="#accueil" className="hover:text-[#2389c6] transition">Accueil</a></li>
       <li><a href="#services" className="hover:text-[#2389c6] transition">Nos services</a></li>
-      <li><a href="#about" className="hover:text-[#2389c6] transition">À propos</a></li>    
+      <li><a href="#about" className="hover:text-[#2389c6] transition">À propos</a></li>
       <li><a href="/InfosPratiques" className="hover:text-[#2389c6] transition">Infos pratiques</a></li>
       <li><a href="#reservation" className="hover:text-[#2389c6] transition">Réservation</a></li>
     </ul>
+
+    {/* Hamburger Mobile */}
+    <div className="md:hidden">
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="text-blue-900 text-3xl focus:outline-none"
+      >
+        ☰
+      </button>
+    </div>
   </div>
+
+  {/* Menu Mobile Ouvert */}
+  {mobileMenuOpen && (
+    <div className="md:hidden mt-4 px-4 space-y-3 text-gray-900 font-medium text-sm bg-white shadow rounded-xl">
+      <a href="#accueil" className="block py-2 border-b hover:text-[#2389c6]">Accueil</a>
+      <a href="#services" className="block py-2 border-b hover:text-[#2389c6]">Nos services</a>
+      <a href="#about" className="block py-2 border-b hover:text-[#2389c6]">À propos</a>
+      <a href="/InfosPratiques" className="block py-2 border-b hover:text-[#2389c6]">Infos pratiques</a>
+      <a href="#reservation" className="block py-2 hover:text-[#2389c6]">Réservation</a>
+    </div>
+  )}
 </nav>
+
 
 {/* Section Accueil */}
 <section
@@ -364,7 +387,7 @@ function SamplePrevArrow(props) {
       </section>
 
 {/* Section reservation */}
-<section id="reservation" className="py-10 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+<section id="reservation" className="scroll-mt-12 py-10 px-6 max-w-6xl mx-auto" data-aos="fade-up">
   <h2 className="text-3xl font-bold mb-10 text-center text-gray-900">Réserver votre sortie</h2>
 {/* Texte d'introduction */}
 <p className="text-center text-gray-700 max-w-2xl mx-auto mb-10">
@@ -374,7 +397,7 @@ function SamplePrevArrow(props) {
     
     {/* WhatsApp */}
     <a
-      href="https://wa.me/33620426968"
+      href="https://wa.me/33659074725"
       target="_blank"
       rel="noopener noreferrer"
       className="bg-white border rounded-2xl shadow-md hover:shadow-xl transition p-6 flex justify-center items-center"
@@ -408,6 +431,7 @@ function SamplePrevArrow(props) {
      
       {/* zoom sur photo dans a propos */}
       {lightboxOpen && (
+        <div className="fixed inset-0 z-[9999]">
   <ImageViewer
     src={galleryImages}
     currentIndex={photoIndex}
@@ -418,6 +442,7 @@ function SamplePrevArrow(props) {
       backgroundColor: "rgba(0,0,0,0.9)"
     }}
   />
+  </div>
 )}
 
        {/* Footer */}
