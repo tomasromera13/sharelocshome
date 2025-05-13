@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Taille personnalisée de la grande image */
+.image-gallery-slide img {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  
+  /* Taille réduite des miniatures */
+  .image-gallery-thumbnail img {
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  
+  
+  
