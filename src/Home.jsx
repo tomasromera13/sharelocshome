@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "react-image-lightbox/style.css";
-import Lightbox from "react-image-lightbox";
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
+import ImageViewer from "react-simple-image-viewer";
 import { useLocation } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -325,12 +322,12 @@ function SamplePrevArrow(props) {
           {/* Carte Demi-journée */}
           <div className="bg-white border-2 rounded-2xl shadow-lg p-6 text-center">
             <h3 className="text-xl font-semibold text-[#D4AF37] mb-2">Demi-journée</h3>
-            <p className="text-4xl font-bold text-gray-900 mb-1">300€</p>
+            <p className="text-4xl font-bold text-gray-900 mb-1">200€</p>
             <p className="text-sm text-gray-500 mb-4">TTC</p>
 
             <ul className="text-gray-700 space-y-2 text-sm">
-              <li>🕐 9h00 - 13h00 ou 13h30 - 17h30</li>
-              <li>📍 Départ mise à l'eau de l'estaque</li>
+              <li>🕐 8h00 - 13h00 ou 13h30 - 18h30</li>
+              <li>📍 Départ mise à l'eau de l'Estaque</li>
               <li>💳 Acompte 25% requis</li>
               <li>⛽ Carburant non inclus</li>
             </ul>
@@ -339,12 +336,12 @@ function SamplePrevArrow(props) {
           {/* Carte Journée */}
           <div className="bg-white border-2 border-[#D4AF37] rounded-2xl shadow-lg p-6 text-center ">
             <h3 className="text-xl font-semibold text-[#D4AF37] mb-2">Journée complète</h3>
-            <p className="text-4xl font-bold text-gray-900 mb-1">450€</p>
+            <p className="text-4xl font-bold text-gray-900 mb-1">300€</p>
             <p className="text-sm text-gray-500 mb-4">TTC</p>
 
             <ul className="text-gray-700 space-y-2 text-sm">
-              <li>🕘 9h00 - 17h00</li>
-              <li>📍 Départ mise à l'eau de l'estaque</li>
+              <li>🕘 8h00 - 18h00</li>
+              <li>📍 Départ mise à l'eau de l'Estaque</li>
               <li>💳 Acompte 25% requis</li>
               <li>⛽ Carburant non inclus</li>
             </ul>
@@ -353,12 +350,12 @@ function SamplePrevArrow(props) {
           {/* Carte Sunset */}
           <div className="bg-white border-2 rounded-2xl shadow-lg p-6 text-center">
             <h3 className="text-xl font-semibold text-[#D4AF37] mb-2">Sortie Sunset</h3>
-            <p className="text-4xl font-bold text-gray-900 mb-1">220€</p>
+            <p className="text-4xl font-bold text-gray-900 mb-1">150€</p>
             <p className="text-sm text-gray-500 mb-4">TTC</p>
 
             <ul className="text-gray-700 space-y-2 text-sm">
               <li>🌇 18h30 - 21h00</li>
-              <li>📍 Départ mise à l'eau de l'estaque</li>
+              <li>📍 Départ mise à l'eau de l'Estaque</li>
               <li>💳 Acompte 25% requis</li>
               <li>⛽ Carburant non inclus</li>
             </ul>
@@ -411,17 +408,15 @@ function SamplePrevArrow(props) {
      
       {/* zoom sur photo dans a propos */}
       {lightboxOpen && (
-  <Lightbox
-    mainSrc={galleryImages[photoIndex]}
-    nextSrc={galleryImages[(photoIndex + 1) % galleryImages.length]}
-    prevSrc={galleryImages[(photoIndex + galleryImages.length - 1) % galleryImages.length]}
-    onCloseRequest={() => setLightboxOpen(false)}
-    onMovePrevRequest={() =>
-      setPhotoIndex((photoIndex + galleryImages.length - 1) % galleryImages.length)
-    }
-    onMoveNextRequest={() =>
-      setPhotoIndex((photoIndex + 1) % galleryImages.length)
-    }
+  <ImageViewer
+    src={galleryImages}
+    currentIndex={photoIndex}
+    onClose={() => setLightboxOpen(false)}
+    disableScroll={false}
+    closeOnClickOutside={true}
+    backgroundStyle={{
+      backgroundColor: "rgba(0,0,0,0.9)"
+    }}
   />
 )}
 
